@@ -1,14 +1,14 @@
 package main.characters;
 
+import java.util.Objects;
+
 public abstract class Characters implements Attack {
 
     private String name;
-
     private int strength;
     private int dexterity;
     private int stamina;
-    private int heals;
-
+    private int health;
     private int xp;
     private int gold;
 
@@ -17,7 +17,7 @@ public abstract class Characters implements Attack {
         this.strength = strength;
         this.dexterity = dexterity;
         this.stamina = stamina;
-        this.heals = heals;
+        this.health = heals;
         this.xp = xp;
         this.gold = gold;
     }
@@ -35,7 +35,7 @@ public abstract class Characters implements Attack {
         return (int) (Math.random() * 100);
     }
 
-    @Override
+//    @Override
 //    public String toString() {
 //        return "Characters {" +
 //                "name='" + name + '\'' +
@@ -47,8 +47,27 @@ public abstract class Characters implements Attack {
 //                ", gold=" + gold +
 //                '}';
 //    }
-    public String toString () {
-        return String.format("%s, здоровье: %d", name, heals);
+
+    @Override
+    public String toString() {
+        return String.format("%s, здоровье: %d", name, health);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Characters that = (Characters) o;
+        return strength == that.strength &&
+                dexterity == that.dexterity &&
+                stamina == that.stamina &&
+                health == that.health &&
+                Objects.equals(name, that.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, strength, dexterity, stamina, health);
     }
 
     public String getName() {
@@ -83,12 +102,12 @@ public abstract class Characters implements Attack {
         this.stamina = stamina;
     }
 
-    public int getHeals() {
-        return heals;
+    public int getHealth() {
+        return health;
     }
 
-    public void setHeals(int heals) {
-        this.heals = heals;
+    public void setHealth(int health) {
+        this.health = health;
     }
 
     public int getXp() {
